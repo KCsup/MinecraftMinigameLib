@@ -92,6 +92,7 @@ public class Arena {
 
     public void restartCountdown() {
         countdown.stop();
+
         countdown = new Countdown(this);
         sendMessage(ChatColor.RED + "Waiting for more players.");
         setGameState(GameState.RECRUITING);
