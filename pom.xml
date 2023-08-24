@@ -9,6 +9,15 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub KCsup Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/KCsup/MinecraftMinigameLib</url>
+        </repository>
+    </distributionManagement>
+
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
