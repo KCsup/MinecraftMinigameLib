@@ -4,7 +4,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.kcsup.minecraftminigamelib.Minigame;
 import org.kcsup.minecraftminigamelib.arena.sign.ArenaSign;
-import org.kcsup.minecraftminigamelib.game.Game;
+import org.kcsup.minecraftminigamelib.game.GameHandler;
 import org.kcsup.minecraftminigamelib.game.GameState;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class Arena {
 
     private ArenaSign arenaSign;
 
-    private Game game;
+    private GameHandler gameHandler;
 
     public Arena(Minigame minigame, int id, String name, Location waitSpawn, Location gameSpawn) {
         this.minigame = minigame;
@@ -40,7 +40,7 @@ public class Arena {
 
         arenaSign = null;
 
-        game = new Game(this);
+        gameHandler = minigame.getGameHandler().clone();
 
         setGameState(GameState.RECRUITING);
     }
@@ -48,7 +48,7 @@ public class Arena {
     public void start() {
         setGameState(GameState.LIVE);
         teleportPlayers(gameSpawn);
-        game.start();
+        gameHandler.start(this);
         sendMessage(ChatColor.GREEN + "--------------------------------------------\n" +
                 ChatColor.YELLOW + minigame.getName() + "\n" +
                 ChatColor.AQUA + minigame.getDescription() + "\n" +
@@ -70,7 +70,7 @@ public class Arena {
         }
         players.clear();
         countdown = new Countdown(this);
-        game = new Game(this);
+        gameHandler = minigame.getGameHandler().clone();
 
         // WORLD RESET LOGIC
         if(minigame.config.doWorldReset) {
@@ -152,10 +152,17 @@ public class Arena {
         players.remove(player);
         player.teleport(minigame.getLobbySpawn());
 
+        player.setHealth(20);
+        player.setGameMode(minigame.config.waitGameMode);
+        player.getInventory().clear();
+
         sendMessage(ChatColor.GREEN + player.getName() + " has quit!");
 
         if(!hasRequiredPlayers() && gameState.equals(GameState.COUNTDOWN)) restartCountdown();
-        else if(players.size() <= 1 && gameState.equals(GameState.LIVE)) reset();
+        else if(players.size() <= 1 && gameState.equals(GameState.LIVE)) {
+            gameHandler.stop(this);
+            reset();
+        }
         else reloadSign();
     }
 
@@ -242,12 +249,12 @@ public class Arena {
         if(arenaSign != null) arenaSign.reloadSign();
     }
 
-    public Game getGame() {
-        return game;
+    public GameHandler getGameHandler() {
+        return gameHandler;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
     }
 
     public boolean canJoin() {

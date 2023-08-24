@@ -32,7 +32,7 @@ public class Minigame {
     private final String commandString;
     private final String[] commandAliases;
 
-    private GameHandler gameHandler;
+    private final GameHandler gameHandler;
 
     public MinigameConfig config;
 
