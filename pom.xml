@@ -13,7 +13,7 @@
         <repository>
             <id>github</id>
             <name>GitHub KCsup Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/KCsup/MinecraftMinigameLib</url>
+            <url>https://maven.pkg.github.com/kcsup/minecraftminigamelib</url>
         </repository>
     </distributionManagement>
 
