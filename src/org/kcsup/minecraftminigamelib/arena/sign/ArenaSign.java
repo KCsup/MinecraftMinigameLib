@@ -1,10 +1,10 @@
 package org.kcsup.minecraftminigamelib.arena.sign;
 
+import org.kcsup.minecraftminigamelib.arena.Arena;
+import org.kcsup.minecraftminigamelib.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
-import org.kcsup.minecraftminigamelib.arena.Arena;
-import org.kcsup.minecraftminigamelib.util.Util;
 
 public class ArenaSign {
 

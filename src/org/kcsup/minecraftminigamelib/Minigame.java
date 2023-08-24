@@ -1,12 +1,12 @@
 package org.kcsup.minecraftminigamelib;
 
+import org.kcsup.minecraftminigamelib.game.GameHandler;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kcsup.minecraftminigamelib.arena.ArenaManager;
 import org.kcsup.minecraftminigamelib.arena.sign.SignManager;
 import org.kcsup.minecraftminigamelib.commands.CustomCommand;
 import org.kcsup.minecraftminigamelib.commands.executors.ArenaCommand;
-import org.kcsup.minecraftminigamelib.game.GameHandler;
 import org.kcsup.minecraftminigamelib.util.Manager;
 
 import javax.annotation.Nullable;

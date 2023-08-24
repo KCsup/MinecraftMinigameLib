@@ -1,9 +1,9 @@
 package org.kcsup.minecraftminigamelib.util;
 
 
+import org.kcsup.minecraftminigamelib.Minigame;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.kcsup.minecraftminigamelib.Minigame;
 
 import java.io.File;
 import java.io.FileReader;
