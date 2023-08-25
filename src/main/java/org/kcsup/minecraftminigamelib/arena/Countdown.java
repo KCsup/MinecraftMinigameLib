@@ -1,8 +1,8 @@
 package org.kcsup.minecraftminigamelib.arena;
 
-import org.kcsup.minecraftminigamelib.game.GameState;
 import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.kcsup.minecraftminigamelib.game.GameState;
 
 public class Countdown extends BukkitRunnable {
     private final Arena arena;

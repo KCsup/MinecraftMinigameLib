@@ -1,16 +1,14 @@
 package org.kcsup.minecraftminigamelib.arena;
 
-import org.kcsup.minecraftminigamelib.Minigame;
-import org.kcsup.minecraftminigamelib.game.GameState;
-import org.kcsup.minecraftminigamelib.util.Util;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.kcsup.minecraftminigamelib.Minigame;
+import org.kcsup.minecraftminigamelib.game.GameState;
 import org.kcsup.minecraftminigamelib.util.Manager;
+import org.kcsup.minecraftminigamelib.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +31,6 @@ public class ArenaManager extends Manager {
     @Override
     public void startup() {
         initiateArenas();
-
-//        if(minigame.config.doWorldReset) {
-//            for(Arena arena : arenas) {
-//                World world = Bukkit.createWorld(new WorldCreator(arena.getGameSpawn().getWorld().getName()));
-//                world.setAutoSave(false);
-//            }
-//        }
     }
 
     @Override

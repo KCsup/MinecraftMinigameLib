@@ -1,7 +1,5 @@
 package org.kcsup.minecraftminigamelib;
 
-import org.kcsup.minecraftminigamelib.game.GameState;
-import org.kcsup.minecraftminigamelib.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,7 +12,9 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.kcsup.minecraftminigamelib.arena.Arena;
 import org.kcsup.minecraftminigamelib.arena.sign.ArenaSign;
+import org.kcsup.minecraftminigamelib.game.GameState;
 import org.kcsup.minecraftminigamelib.util.Manager;
+import org.kcsup.minecraftminigamelib.util.Util;
 
 public class EventListener implements Listener {
     private final Minigame minigame;

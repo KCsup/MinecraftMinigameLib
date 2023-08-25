@@ -1,7 +1,5 @@
 package org.kcsup.minecraftminigamelib.arena.sign;
 
-import org.kcsup.minecraftminigamelib.Minigame;
-import org.kcsup.minecraftminigamelib.util.Util;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -11,8 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.kcsup.minecraftminigamelib.Minigame;
 import org.kcsup.minecraftminigamelib.arena.Arena;
 import org.kcsup.minecraftminigamelib.util.Manager;
+import org.kcsup.minecraftminigamelib.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

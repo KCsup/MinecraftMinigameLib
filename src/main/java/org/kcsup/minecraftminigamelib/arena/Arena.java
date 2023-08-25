@@ -1,11 +1,11 @@
 package org.kcsup.minecraftminigamelib.arena;
 
-import org.kcsup.minecraftminigamelib.Minigame;
-import org.kcsup.minecraftminigamelib.game.GameHandler;
-import org.kcsup.minecraftminigamelib.game.GameState;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.kcsup.minecraftminigamelib.Minigame;
 import org.kcsup.minecraftminigamelib.arena.sign.ArenaSign;
+import org.kcsup.minecraftminigamelib.game.GameHandler;
+import org.kcsup.minecraftminigamelib.game.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
