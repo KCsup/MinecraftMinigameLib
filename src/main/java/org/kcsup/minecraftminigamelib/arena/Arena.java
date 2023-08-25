@@ -55,6 +55,12 @@ public class Arena {
                 ChatColor.GREEN + "--------------------------------------------");
 
         for(Player player : players) player.setGameMode(minigame.config.liveGameMode);
+
+        if(minigame.config.doWorldReset) {
+            World gameWorld = gameSpawn.getWorld();
+            gameWorld.save();
+            gameWorld.setAutoSave(false);
+        }
     }
 
     public void reset() {
@@ -80,7 +86,7 @@ public class Arena {
                     minigame.getPlugin(),
                     () -> {
                         World world = Bukkit.createWorld(new WorldCreator(gameWorldName));
-                        world.setAutoSave(false);
+                        world.setAutoSave(true);
                     },
                     10*20L
             );

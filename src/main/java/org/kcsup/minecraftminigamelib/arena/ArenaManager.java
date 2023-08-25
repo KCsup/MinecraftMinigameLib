@@ -34,12 +34,12 @@ public class ArenaManager extends Manager {
     public void startup() {
         initiateArenas();
 
-        if(minigame.config.doWorldReset) {
-            for(Arena arena : arenas) {
-                World world = Bukkit.createWorld(new WorldCreator(arena.getGameSpawn().getWorld().getName()));
-                world.setAutoSave(false);
-            }
-        }
+//        if(minigame.config.doWorldReset) {
+//            for(Arena arena : arenas) {
+//                World world = Bukkit.createWorld(new WorldCreator(arena.getGameSpawn().getWorld().getName()));
+//                world.setAutoSave(false);
+//            }
+//        }
     }
 
     @Override

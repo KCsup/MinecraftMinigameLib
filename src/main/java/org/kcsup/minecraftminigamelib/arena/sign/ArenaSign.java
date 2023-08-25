@@ -8,9 +8,9 @@ import org.bukkit.block.Sign;
 
 public class ArenaSign {
 
-    private Location location;
-    private Arena arena;
-    private Sign sign;
+    private final Location location;
+    private final Arena arena;
+    private final Sign sign;
 
     public ArenaSign(Location location, Arena arena) {
         this.location = location;
@@ -20,6 +20,7 @@ public class ArenaSign {
             sign = (Sign) this.location.getBlock().getState();
             reloadSign();
         }
+        else sign = null;
     }
 
     public void reloadSign() {
