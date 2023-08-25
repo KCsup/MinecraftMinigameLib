@@ -7,7 +7,6 @@ Add the following to the `maven-shade-plugin` config:
 ```xml
 <configuration>
     ...
-  
     <shadedArtifactAttached>true</shadedArtifactAttached>
     <shadedClassifierName>shaded</shadedClassifierName>
     <relocations>
@@ -17,18 +16,21 @@ Add the following to the `maven-shade-plugin` config:
         </relocation>
     </relocations>
     <outputFile>target/${name}.jar</outputFile>
+    ...
 </configuration>
 ```
 Add the following to the plugin dependencies:
 ```xml
 <dependencies>
+    ...
     <dependency>
         <groupId>org.kcsup</groupId>
         <artifactId>minecraftminigamelib</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <scope>provided</scope>
+        <scope>compile</scope>
     </dependency>
+    ...
 </dependencies>
 ```
 
-*Still testing deplotment
+*Still testing deployment
