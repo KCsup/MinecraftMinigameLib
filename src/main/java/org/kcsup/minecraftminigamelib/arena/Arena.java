@@ -19,8 +19,8 @@ public class Arena {
     private List<Player> players;
 
     // Notes of clarification
-    private final Location waitSpawn; // Waiting spawn
-    private final Location gameSpawn; // Spawn for when the game starts
+    private Location waitSpawn; // Waiting spawn
+    private Location gameSpawn; // Spawn for when the game starts
 
     private GameState gameState;
     private Countdown countdown;
@@ -87,6 +87,11 @@ public class Arena {
                     () -> {
                         World world = Bukkit.createWorld(new WorldCreator(gameWorldName));
                         world.setAutoSave(true);
+
+                        gameSpawn.setWorld(world);
+
+                        if(waitSpawn.getWorld().getName().equals(gameWorldName))
+                            waitSpawn.setWorld(world);
                     },
                     10*20L
             );
