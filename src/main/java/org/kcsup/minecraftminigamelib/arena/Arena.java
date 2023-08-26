@@ -19,8 +19,8 @@ public class Arena {
     private List<Player> players;
 
     // Notes of clarification
-    private Location waitSpawn; // Waiting spawn
-    private Location gameSpawn; // Spawn for when the game starts
+    private final Location waitSpawn; // Waiting spawn
+    private final Location gameSpawn; // Spawn for when the game starts
 
     private GameState gameState;
     private Countdown countdown;
@@ -70,9 +70,7 @@ public class Arena {
 
         for(Player player : players) {
             player.setGameMode(minigame.config.waitGameMode);
-            player.setHealth(20);
-            player.setFoodLevel(20);
-            player.getInventory().clear();
+            clearPlayer(player);
         }
         players.clear();
         countdown = new Countdown(this);
@@ -151,10 +149,9 @@ public class Arena {
         if(hasRequiredPlayers() && !countdown.hasBegun()) countdown.begin();
         else reloadSign();
 
-        player.setHealth(20);
+        clearPlayer(player);
         if(!minigame.config.doPlayerHunger) player.setFoodLevel(minigame.config.defaultFoodLevel);
         player.setGameMode(minigame.config.waitGameMode);
-        player.getInventory().clear();
     }
 
     public void removePlayer(Player player) {
@@ -163,9 +160,8 @@ public class Arena {
         players.remove(player);
         player.teleport(minigame.getLobbySpawn());
 
-        player.setHealth(20);
+        clearPlayer(player);
         player.setGameMode(minigame.config.waitGameMode);
-        player.getInventory().clear();
 
         sendMessage(ChatColor.GREEN + player.getName() + " has quit!");
 
@@ -271,5 +267,15 @@ public class Arena {
     public boolean canJoin() {
         return !(gameState == GameState.LIVE || gameState == GameState.RESTARTING) &&
                 !isFull();
+    }
+
+    private void clearPlayer(Player player) {
+        player.setHealth(20);
+        player.setFoodLevel(20);
+        player.getInventory().clear();
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
     }
 }

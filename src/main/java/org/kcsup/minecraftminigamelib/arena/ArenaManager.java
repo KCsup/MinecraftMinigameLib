@@ -1,5 +1,6 @@
 package org.kcsup.minecraftminigamelib.arena;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.kcsup.minecraftminigamelib.game.GameState;
 import org.kcsup.minecraftminigamelib.util.Manager;
 import org.kcsup.minecraftminigamelib.util.Util;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +32,7 @@ public class ArenaManager extends Manager {
 
     @Override
     public void startup() {
-        initiateArenas();
+        reloadArenas();
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ArenaManager extends Manager {
         for(Arena arena : getArenas()) arena.reset();
     }
 
-    public void initiateArenas() {
+    public void reloadArenas() {
         if(anyArenasLive()) return;
 
         arenas.clear();
@@ -49,6 +51,24 @@ public class ArenaManager extends Manager {
             JSONObject arenaJson = (JSONObject) o;
             Arena arena = jsonToArena(arenaJson);
             if(arena != null) arenas.add(arena);
+        }
+    }
+
+    public void reloadArena(Arena arena) {
+        if(arena == null || !arenas.contains(arena) || arena.getGameState() != GameState.RECRUITING) return;
+
+        arenas.remove(arena);
+
+        JSONObject file = getDataFile();
+        JSONArray arenasJson = file.getJSONArray("arenas");
+        for(Object o : arenasJson.toList()) {
+            JSONObject arenaJsonObject = (JSONObject) o;
+
+            if (!Objects.equals(arena.getName(), arenaJsonObject.getString("name"))) continue;
+
+            Arena reloadedArena = jsonToArena(arenaJsonObject);
+            if(reloadedArena != null) arenas.add(reloadedArena);
+            break;
         }
     }
 
@@ -87,6 +107,8 @@ public class ArenaManager extends Manager {
     }
 
     public Arena getArena(String name) {
+        if(StringUtils.isNumeric(name)) return getArena(Integer.parseInt(name));
+
         for(Arena arena : arenas) {
             if(Objects.equals(name, arena.getName())) return arena;
         }
@@ -130,6 +152,50 @@ public class ArenaManager extends Manager {
         updateDataFile(file);
     }
 
+    public void updateArena(
+            Arena arena,
+            @Nullable String newName,
+            @Nullable Location newWaitSpawn,
+            @Nullable Location newGameSpawn
+    ) {
+        if(arena == null) return;
+
+        JSONObject file = getDataFile();
+        JSONArray arenasJson = file.getJSONArray("arenas");
+        for(Object o : arenasJson.toList()) {
+            JSONObject arenaJsonObject = (JSONObject) o;
+
+            if(!Objects.equals(arena.getName(), arenaJsonObject.getString("name"))) continue;
+
+            if(newWaitSpawn != null) {
+                Location currentWaitSpawn = Util.jsonToLocation(arenaJsonObject.getJSONObject("waitSpawn"));
+                if(!Util.locationEquals(currentWaitSpawn, newWaitSpawn))
+                    arenaJsonObject.put("waitSpawn", Util.locationToJson(newWaitSpawn));
+            }
+
+            if(newGameSpawn != null) {
+                Location currentGameSpawn = Util.jsonToLocation(arenaJsonObject.getJSONObject("gameSpawn"));
+                if(!Util.locationEquals(currentGameSpawn, newGameSpawn))
+                    arenaJsonObject.put("gameSpawn", Util.locationToJson(newGameSpawn));
+            }
+
+            if(newName != null && !arenaJsonObject.getString("name").equals(newName))
+                arenaJsonObject.put("name", newName);
+
+            break;
+        }
+
+        updateDataFile(file);
+    }
+
+    /*
+        {
+            "name": String,
+            "id": int,
+            "waitSpawn": JSONObject (Bukkit Location),
+            "gameSpawn": JSONObject (Bukkit Location),
+        }
+     */
     private JSONObject arenaToJson(Arena arena) {
         if(arena == null) return null;
 

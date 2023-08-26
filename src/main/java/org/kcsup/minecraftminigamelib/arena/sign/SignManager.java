@@ -1,5 +1,6 @@
 package org.kcsup.minecraftminigamelib.arena.sign;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -158,7 +159,7 @@ public class SignManager extends Manager {
         ItemStack wand = new ItemStack(Material.BLAZE_ROD);
         wand.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
         ItemMeta meta = wand.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.setDisplayName(ChatColor.GREEN + "Add Arena Sign");
         wand.setItemMeta(meta);
 
         return wand;
