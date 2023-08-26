@@ -46,9 +46,10 @@ public class ArenaManager extends Manager {
         arenas.clear();
 
         JSONObject file = getDataFile();
-        JSONArray jArenas = file.getJSONArray("arenas");
-        for(Object o : jArenas) {
-            JSONObject arenaJson = (JSONObject) o;
+        JSONArray arenasJson = file.getJSONArray("arenas");
+        for(int i = 0; i < arenasJson.length(); i++) {
+            JSONObject arenaJson = arenasJson.getJSONObject(i);
+
             Arena arena = jsonToArena(arenaJson);
             if(arena != null) arenas.add(arena);
         }
@@ -61,8 +62,8 @@ public class ArenaManager extends Manager {
 
         JSONObject file = getDataFile();
         JSONArray arenasJson = file.getJSONArray("arenas");
-        for(Object o : arenasJson.toList()) {
-            JSONObject arenaJsonObject = (JSONObject) o;
+        for(int i = 0; i < arenasJson.length(); i++) {
+            JSONObject arenaJsonObject = arenasJson.getJSONObject(i);
 
             if (!Objects.equals(arena.getName(), arenaJsonObject.getString("name"))) continue;
 
