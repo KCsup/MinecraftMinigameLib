@@ -65,7 +65,8 @@ public class ArenaManager extends Manager {
         for(int i = 0; i < arenasJson.length(); i++) {
             JSONObject arenaJsonObject = arenasJson.getJSONObject(i);
 
-            if (!Objects.equals(arena.getName(), arenaJsonObject.getString("name"))) continue;
+            if(!(Objects.equals(arena.getName(), arenaJsonObject.getString("name")) ||
+                    arena.getId() == arenaJsonObject.getInt("id"))) continue;
 
             Arena reloadedArena = jsonToArena(arenaJsonObject);
             if(reloadedArena != null) arenas.add(reloadedArena);
@@ -163,10 +164,11 @@ public class ArenaManager extends Manager {
 
         JSONObject file = getDataFile();
         JSONArray arenasJson = file.getJSONArray("arenas");
-        for(Object o : arenasJson.toList()) {
-            JSONObject arenaJsonObject = (JSONObject) o;
+        for(int i = 0; i < arenasJson.length(); i++) {
+            JSONObject arenaJsonObject = arenasJson.getJSONObject(i);
 
-            if(!Objects.equals(arena.getName(), arenaJsonObject.getString("name"))) continue;
+            if(!(Objects.equals(arena.getName(), arenaJsonObject.getString("name")) ||
+                    arena.getId() == arenaJsonObject.getInt("id"))) continue;
 
             if(newWaitSpawn != null) {
                 Location currentWaitSpawn = Util.jsonToLocation(arenaJsonObject.getJSONObject("waitSpawn"));
